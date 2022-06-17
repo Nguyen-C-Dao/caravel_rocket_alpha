@@ -77,6 +77,10 @@ module user_project_wrapper1 #(
     // User maskable interrupt signals
     output [2:0] user_irq
 );
+    wire gpio_0_0;
+    wire gpio_0_1;
+    wire gpio_0_2;
+    wire gpio_0_3;
 
     wire spi_0_dq_0;
     wire spi_0_dq_1;
@@ -87,6 +91,15 @@ module user_project_wrapper1 #(
     wire spi_1_dq_1;
     wire spi_1_dq_2;
     wire spi_1_dq_3;
+
+    assign io_in[34]  = gpio_0_0;
+    assign io_out[34] = gpio_0_0;
+    assign io_in[35]  = gpio_0_1;
+    assign io_out[35] = gpio_0_1;
+    assign io_in[36]  = gpio_0_2;
+    assign io_out[36] = gpio_0_2;
+    assign io_in[37]  = gpio_0_3;
+    assign io_out[37] = gpio_0_3;
     
     assign io_in[21]  = spi_0_dq_0;
     assign io_out[21] = spi_0_dq_0;
@@ -113,28 +126,29 @@ ChipTop Inst_ChipTop (
 	.vccd1(vccd1),	// User area 1 1.8V power
 	.vssd1(vssd1),	// User area 1 digital ground
 `endif
+  .io_oeb(io_oeb),
   .jtag_TCK(io_in[15]),              // In
   .jtag_TMS(io_in[16]),             // In
   .jtag_TDI(io_in[17]),             // In
   .jtag_TDO(io_out[18]),            // Out
 
   // Unconnected or connect to LA pins
-  .serial_tl_clock(la_data_out[1]), // Out
-  .serial_tl_bits_in_ready(la_data_out[2]),  // Out
-  .serial_tl_bits_in_valid(la_data_in[2]),   // In
-  .serial_tl_bits_in_bits(wbs_adr_i),        // In 32bits
-  .serial_tl_bits_out_ready(la_data_in[3]),  // In
-  .serial_tl_bits_out_valid(la_data_out[3]), // Out
-  .serial_tl_bits_out_bits(wbs_dat_o),       // Out 32bits
+  .serial_tl_clock(la_data_out[1]),            // Out
+  .serial_tl_bits_in_ready(la_data_out[2]),    // Out
+  .serial_tl_bits_in_valid(la_data_in[2]),     // In
+  .serial_tl_bits_in_bits(la_data_in[41:10]),  // In 32bits
+  .serial_tl_bits_out_ready(la_data_in[3]),    // In
+  .serial_tl_bits_out_valid(la_data_out[3]),   // Out
+  .serial_tl_bits_out_bits(la_data_out[81:50]), // Out 32bits
 
-  .custom_boot(io_in[12]),      // In
+  .custom_boot(io_in[11]),      // In
   .clock_clock(wb_clk_i),       // In
-  .reset(io_in[13]),            // In
+  .reset(io_in[12]),            // In
 
-  .gpio_0_0(io_in[34]),         // InOut
-  .gpio_0_1(io_in[35]),         // InOut
-  .gpio_0_2(io_in[36]),         // InOut
-  .gpio_0_3(io_in[37]),         // InOut
+  .gpio_0_0(gpio_0_0),         // InOut
+  .gpio_0_1(gpio_0_1),         // InOut
+  .gpio_0_2(gpio_0_2),         // InOut
+  .gpio_0_3(gpio_0_3),         // InOut
 
   // SPI 0 - FLASH
   .spi_0_sck(io_out[19]),       // Out
