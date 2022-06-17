@@ -4,8 +4,8 @@
 
 | :exclamation: Important Note            |
 |-----------------------------------------|
-This project demonstrates an customized TinyRocket with SHA3 SoC, generated from Chipyard. The SoC is implemented in Sky130nm using the Openlane flow.
+This project demonstrates an customized Rocket Chip SoC, generated from Chipyard. The SoC is implemented in Sky130nm using the Openlane flow.
 
 <p align="center">
-  <img src="docs/source/TinyRocket_sha3_GDS.png" width="350" title="Customized TinyRocket with SHA3">
+  <img src="docs/source/Medcore_RocketAlpha.png" width="350" title="Caravel_Rocket_Alpha SoC">
 </p>
